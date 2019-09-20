@@ -1,18 +1,13 @@
 package com.curso.angular.endpoints;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.curso.angular.dto.UserDTO;
+import com.curso.angular.base.controller.ControllerCrudAbstractImpl;
+import com.curso.angular.endpoints.interfaces.IUserController;
 import com.curso.angular.entity.User;
 import com.curso.angular.service.interfaces.UserServiceInterface;
 
@@ -22,29 +17,17 @@ import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/users")
 @Api(value="curso-angular-backend")
-public class UserController {
+public class UserController extends ControllerCrudAbstractImpl<User, Long> implements IUserController {
 
 	@Autowired
 	private UserServiceInterface service;
 	
-	@GetMapping("/{email}")
-	@ApiOperation(value = "Retorna dados do usu·rio pelo e-mail")
+	@GetMapping("/email/{email}")
+	@ApiOperation(value = "Retorna dados do usu√°rio pelo e-mail")
 	public User findByEmail(@PathVariable String email) {
 		return service.findByEmail(email).orElse(null);
-	}
-
-	@GetMapping
-	@ApiOperation(value = "Retorna todos usu·rios")
-	public List<User> listar() {
-		return service.findAll();
-	}
-
-	@PostMapping
-	@ApiOperation(value = "Salva usu·rio no banco de dados")
-	public ResponseEntity<?> salvar(@RequestBody UserDTO usuario) {
-		return ResponseEntity.status(HttpStatus.OK).body(service.save(new User(usuario)));
 	}
 
 }

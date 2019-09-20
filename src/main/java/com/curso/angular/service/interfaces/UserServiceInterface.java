@@ -1,14 +1,10 @@
 package com.curso.angular.service.interfaces;
 
-import java.util.List;
 import java.util.Optional;
 
+import com.curso.angular.base.service.interfaces.IServiceCrudAbstract;
 import com.curso.angular.entity.User;
 
-public interface UserServiceInterface extends ServiceInterface<User>{
+public interface UserServiceInterface extends IServiceCrudAbstract<User, Long>{
 	Optional<User> findByEmail(String email);
-
-	List<User> findAll();
-
-	User save(User user);
 }

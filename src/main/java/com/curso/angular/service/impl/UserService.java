@@ -1,6 +1,5 @@
 package com.curso.angular.service.impl;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.curso.angular.base.service.ServiceCrudAbstractImpl;
 import com.curso.angular.dto.UserDetailsDTO;
 import com.curso.angular.entity.User;
 import com.curso.angular.repository.UserRepository;
@@ -19,7 +19,7 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class UserService implements UserServiceInterface, UserDetailsService {
+public class UserService extends ServiceCrudAbstractImpl<User, Long> implements UserServiceInterface, UserDetailsService {
 
 	@Autowired
 	private UserRepository userRepository;
@@ -34,16 +34,6 @@ public class UserService implements UserServiceInterface, UserDetailsService {
 	@Override
 	public Optional<User> findByEmail(String email) {
 		return userRepository.findByEmail(email);
-	}
-
-	@Override
-	public List<User> findAll() {
-		return userRepository.findAll();
-	}
-	
-	@Override
-	public User save(User user) {
-		return userRepository.saveAndFlush(user);
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.curso.angular.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +14,9 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @SuppressWarnings("deprecation")
 @EnableWebSecurity
@@ -23,6 +28,27 @@ public class SegurancaConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userService;
 
+	private static final String[] PUBLIC_MATCHERS = {
+			"/h2-console/**"
+	};
+	
+	private static final String[] PUBLIC_MATCHERS_SWAGGER = {
+			"/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/webjars/**"
+	};
+    
+	private static final String[] PUBLIC_MATCHERS_GET = {
+			"/users",
+			"/municipios",
+			"/estados",
+			"/clientes/tipo-pessoa",
+			"/enderecos/logradouro"
+	};
+	
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -31,14 +57,10 @@ public class SegurancaConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs",
-                "/configuration/ui",
-                "/swagger-resources/**",
-                "/configuration/security",
-                "/swagger-ui.html",
-                "/user",
-                "/h2",
-                "/webjars/**");
+        web.ignoring()
+        .antMatchers(PUBLIC_MATCHERS)
+        .antMatchers(PUBLIC_MATCHERS_SWAGGER)
+        .antMatchers(PUBLIC_MATCHERS_GET);
     }
 
     @Override
@@ -51,4 +73,13 @@ public class SegurancaConfiguration extends WebSecurityConfigurerAdapter {
         return NoOpPasswordEncoder.getInstance();
     }
 
+	
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration().applyPermitDefaultValues();
+		configuration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
+		final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 }
