@@ -35,7 +35,7 @@ public class Municipio implements Serializable {
 	
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "id_estado", nullable = false, foreignKey = @ForeignKey(name = "municipio_estado_fkey"))
+	@JoinColumn(name = "id_estado")
 	private Estado estado;
 
 	@NotBlank(message="A descrição é obrigatória.")
