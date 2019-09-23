@@ -35,7 +35,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RequestMapping("/clientes")
 @Api(value = "curso-angular-backend")
-public class ClienteController extends ControllerCrudAbstractImpl<Cliente, Long> implements IClienteController {
+public class ClienteController extends ControllerCrudAbstractImpl<Cliente, Integer> implements IClienteController {
 
 	@Autowired
 	private IDocumentoService documentoService;
