@@ -47,7 +47,7 @@ public class ClienteController extends ControllerCrudAbstractImpl<Cliente, Long>
 	}
 
 	@PostMapping("/{idCliente}/documento-upload")
-	public ResponseEntity<Documento> uploadFile(@NotNull @PathVariable("idCliente") Long idCliente,
+	public ResponseEntity<Documento> uploadFile(@NotNull @PathVariable("idCliente") Integer idCliente,
 			@RequestParam("file") MultipartFile file) throws ServiceException {
 		return ResponseEntity.ok().body(documentoService.salvarDocumentoCliente(idCliente, file));
 	}

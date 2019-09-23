@@ -9,7 +9,7 @@ import com.curso.angular.base.service.interfaces.IServiceCrudAbstract;
 import com.curso.angular.entity.Documento;
 
 public interface IDocumentoService extends IServiceCrudAbstract<Documento, Long>{
-	Documento salvarDocumentoCliente(Long idCliente, MultipartFile file) throws ServiceException;
+	Documento salvarDocumentoCliente(Integer idCliente, MultipartFile file) throws ServiceException;
 	
-	List<Documento> findAllByClienteId(Long idCliente);
+	List<Documento> findAllByClienteId(Integer idCliente);
 }

@@ -26,7 +26,7 @@ public class DocumentoService extends ServiceCrudAbstractImpl<Documento, Long> i
 	private IClienteService clienteService;
 
 	@Override
-	public Documento salvarDocumentoCliente(Long idCliente, MultipartFile file) throws ServiceException {
+	public Documento salvarDocumentoCliente(Integer idCliente, MultipartFile file) throws ServiceException {
 		Optional<Cliente> clienteOptional = clienteService.get(idCliente);
 
 		if (!clienteOptional.isPresent()) {
@@ -50,7 +50,7 @@ public class DocumentoService extends ServiceCrudAbstractImpl<Documento, Long> i
 	}
 
 	@Override
-	public List<Documento> findAllByClienteId(Long idCliente) {
+	public List<Documento> findAllByClienteId(Integer idCliente) {
 		return this.findAllByClienteId(idCliente);
 	}
 }

@@ -11,6 +11,6 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Service
-public class ClienteService extends ServiceCrudAbstractImpl<Cliente, Long> implements IClienteService {
+public class ClienteService extends ServiceCrudAbstractImpl<Cliente, Integer> implements IClienteService {
 
 }
