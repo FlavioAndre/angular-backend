@@ -25,6 +25,7 @@ import com.curso.angular.endpoints.interfaces.IClienteController;
 import com.curso.angular.entity.Cliente;
 import com.curso.angular.entity.Documento;
 import com.curso.angular.entity.enums.TipoCliente;
+import com.curso.angular.service.interfaces.IClienteService;
 import com.curso.angular.service.interfaces.IDocumentoService;
 
 import io.swagger.annotations.Api;
@@ -39,6 +40,9 @@ public class ClienteController extends ControllerCrudAbstractImpl<Cliente, Integ
 
 	@Autowired
 	private IDocumentoService documentoService;
+	
+	@Autowired
+	private IClienteService clienteService;
 
 	@GetMapping(path = "/tipo-pessoa")
 	@ApiOperation(value = "Retorna lista de tipo pessoa")
@@ -65,4 +69,9 @@ public class ClienteController extends ControllerCrudAbstractImpl<Cliente, Integ
                 .body(new ByteArrayResource(documento.get().getArquivo()));
     }
 
+    @GetMapping("/cep/{cep}")
+    public ResponseEntity<String> buscarCep(@NotNull @PathVariable("cep") String cep) {
+    	return ResponseEntity.ok().body(clienteService.buscarCep(cep));
+    }
+    
 }

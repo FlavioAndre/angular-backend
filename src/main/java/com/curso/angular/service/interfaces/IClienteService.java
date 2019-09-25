@@ -5,4 +5,6 @@ import com.curso.angular.entity.Cliente;
 
 public interface IClienteService extends IServiceCrudAbstract<Cliente, Integer>{
 
+	String buscarCep(String cep);
+
 }
