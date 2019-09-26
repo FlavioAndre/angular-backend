@@ -76,8 +76,8 @@ public class ClienteController extends ControllerCrudAbstractImpl<Cliente, Integ
     	return ResponseEntity.ok().body(clienteService.buscarCep(cep));
     }
     
-    @GetMapping("/{id}/documento-cliente")
-    public ResponseEntity<List<DocumentoDTO>> buscaDocumentosCliente(Integer idCliente) {
+    @GetMapping("/{idCliente}/documento-cliente")
+    public ResponseEntity<List<DocumentoDTO>> buscaDocumentosCliente(@NotNull @PathVariable("idCliente") Integer idCliente) {
     	return ResponseEntity.ok().body(this.documentoService.buscaDocumentosClienteId(idCliente));
     }
 }
