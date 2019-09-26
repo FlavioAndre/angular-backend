@@ -17,6 +17,6 @@ public interface DocumentoRepository  extends JpaRepository<Documento, Long>{
 	List<Documento> findAllByClienteId(@Param("idCliente") Long idCliente);
 	
 	@Transactional(readOnly=true)
-	@Query("select new com.curso.angular.dto.DocumentoDTO(d.id, d.nome, d.contentType, d.cliente.id) from Documento d where d.cliente.id =: idCliente")
+	@Query("select new com.curso.angular.dto.DocumentoDTO(d.id, d.nome, d.contentType, d.cliente.id) from Documento d where d.cliente.id = :idCliente")
 	List<DocumentoDTO> buscaDocumentosClienteId(@Param("idCliente") Integer idCliente);
 }
