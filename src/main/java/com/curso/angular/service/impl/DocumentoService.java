@@ -10,8 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.curso.angular.base.exception.ServiceException;
 import com.curso.angular.base.service.ServiceCrudAbstractImpl;
+import com.curso.angular.dto.DocumentoDTO;
 import com.curso.angular.entity.Cliente;
 import com.curso.angular.entity.Documento;
+import com.curso.angular.repository.DocumentoRepository;
 import com.curso.angular.service.exceptions.ObjectNotFoundException;
 import com.curso.angular.service.interfaces.IClienteService;
 import com.curso.angular.service.interfaces.IDocumentoService;
@@ -24,6 +26,10 @@ public class DocumentoService extends ServiceCrudAbstractImpl<Documento, Long> i
 
 	@Autowired
 	private IClienteService clienteService;
+	
+	@Autowired
+	private DocumentoRepository repository;
+
 
 	@Override
 	public Documento salvarDocumentoCliente(Integer idCliente, MultipartFile file) throws ServiceException {
@@ -52,5 +58,10 @@ public class DocumentoService extends ServiceCrudAbstractImpl<Documento, Long> i
 	@Override
 	public List<Documento> findAllByClienteId(Integer idCliente) {
 		return this.findAllByClienteId(idCliente);
+	}
+	
+	@Override
+	public List<DocumentoDTO> buscaDocumentosClienteId(Integer idCliente) {
+		return this.repository.buscaDocumentosClienteId(idCliente);
 	}
 }

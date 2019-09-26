@@ -1,5 +1,6 @@
 package com.curso.angular.endpoints;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.curso.angular.base.controller.ControllerCrudAbstractImpl;
 import com.curso.angular.base.exception.ServiceException;
+import com.curso.angular.dto.DocumentoDTO;
 import com.curso.angular.endpoints.interfaces.IClienteController;
 import com.curso.angular.entity.Cliente;
 import com.curso.angular.entity.Documento;
@@ -74,4 +76,8 @@ public class ClienteController extends ControllerCrudAbstractImpl<Cliente, Integ
     	return ResponseEntity.ok().body(clienteService.buscarCep(cep));
     }
     
+    @GetMapping("/{id}/documento-cliente")
+    public ResponseEntity<List<DocumentoDTO>> buscaDocumentosCliente(Integer idCliente) {
+    	return ResponseEntity.ok().body(this.documentoService.buscaDocumentosClienteId(idCliente));
+    }
 }
